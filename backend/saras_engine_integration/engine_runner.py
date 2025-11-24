@@ -1,17 +1,3 @@
-# backend/saras_engine_integration/engine_runner.py
-"""
-Engine runner connecting Django backend <-> S.A.R.A.S AI Engine.
-
-Features:
-- Runs Non-RAG tasks using ManagerAgent.handle_request()
-- Runs RAG tasks (file-based) using embedding + vector-store retrieval
-- Saves every result into backend/traces/<task_id>.json
-- Produces Option-C response format:
-    final_answer + sources + tools_used + agents + metadata + trace
-
-Important operations are commented inline so you can see why each step exists.
-"""
-
 import hashlib
 import os
 import time
@@ -20,24 +6,19 @@ import uuid
 from pathlib import Path
 from typing import Optional, Dict, Any, List
 
-# ------------------------------------------------------------------
-# NOTE: these imports expect your saras_engine package to be importable.
-# Ensure Python path includes project root (manage.py location) or
-# that saras_engine is installed as a package in your venv.
-# ------------------------------------------------------------------
 try:
     from saras_engine.src.tools.pdf_extractor import extract_text_or_fail
     from saras_engine.src.tools.embeddings import embeddings_for_document_bytes
     from saras_engine.src.tools.vector_store import build_store, query_store
     from saras_engine.src.agents.manager_agent import ManagerAgent
 except Exception as e:
-    # Important operation: surface a clear import error (helps diagnose PYTHONPATH issues)
+    # Important operation: surface a clear import error 
     raise ImportError(f"Engine imports failed (saras_engine.*). Fix package path or imports. Error: {e}")
 
-# Environment-configurable API key for agents (optional)
+# Environment-configurable API key for agents
 SARAS_API_KEY = os.getenv("SARAS_API_KEY", "demo-key")
 
-# Base directories for storing traces and uploaded files (create if missing)
+# Base directories for storing traces and uploaded files
 BASE_DIR = Path(__file__).resolve().parents[1]  # backend/
 TRACES_DIR = BASE_DIR / "traces"
 UPLOADS_DIR = BASE_DIR / "uploads"
@@ -45,14 +26,10 @@ UPLOADS_DIR = BASE_DIR / "uploads"
 TRACES_DIR.mkdir(parents=True, exist_ok=True)
 UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 
-
-# -------------------------
 # Utility helpers
-# -------------------------
 def _make_task_id(prefix: str) -> str:
-    """Important operation: create short unique task id with readable prefix."""
+    # Important operation: create short unique task id with readable prefix.
     return f"{prefix}-{uuid.uuid4().hex[:8]}"
-
 
 def _atomic_write_json(path: Path, data: Dict[str, Any]) -> None:
     """
@@ -64,25 +41,14 @@ def _atomic_write_json(path: Path, data: Dict[str, Any]) -> None:
         json.dump(data, f, ensure_ascii=False, indent=2)
     tmp.replace(path)
 
-
 def _save_payload(task_id: str, payload: Dict[str, Any]) -> None:
-    """Persist the full response payload to backend/traces/ for later retrieval."""
+    # Persist the full response payload to backend/traces/ for later retrieval.
     path = TRACES_DIR / f"{task_id}.json"
     _atomic_write_json(path, payload)
 
-
-# -------------------------
 # Normalize manager output
-# -------------------------
 def _normalize_manager_output(manager_output: Dict[str, Any], task_id: str, mode: str,
                               file_ref: Optional[str] = None) -> Dict[str, Any]:
-    """
-    Convert ManagerAgent output to Option-C contract:
-    - final_answer: prefer writer_agent_output.text or final_text, fallback to research summary
-    - sources: manager_output['sources'] OR constructed from research results
-    - tools_used / agents / metadata are preserved where available
-    - trace: use manager_output['trace'] if present
-    """
     writer_out = manager_output.get("writer_agent_output")
     research_out = manager_output.get("research_agent_output")
 
@@ -90,7 +56,7 @@ def _normalize_manager_output(manager_output: Dict[str, Any], task_id: str, mode
     writer_used_fallback = False
     writer_citations: List[Dict[str, str]] = []
 
-    # Important operation: handle writer output shape (dict preferred, string fallback)
+    # handle writer output shape (dict preferred, string fallback)
     if isinstance(writer_out, dict):
         final_answer = writer_out.get("text") or writer_out.get("final_text") or ""
         writer_citations = writer_out.get("citations", []) or []
@@ -147,17 +113,8 @@ def _normalize_manager_output(manager_output: Dict[str, Any], task_id: str, mode
 
     return payload
 
-
-# -------------------------
 # NON-RAG pipeline
-# -------------------------
 def run_non_rag(query: str) -> Dict[str, Any]:
-    """
-    Important operations:
-    - instantiate ManagerAgent
-    - call handle_request(query)
-    - normalize + persist payload
-    """
     task_id = _make_task_id("nonrag")
     start = time.time()
 
@@ -198,10 +155,7 @@ def run_non_rag(query: str) -> Dict[str, Any]:
         _save_payload(task_id, err)
         return err
 
-
-# -------------------------
 # RAG pipeline (embedding + store + retrieval)
-# -------------------------
 def run_rag(query: str, file_bytes: bytes, filename: str, file_url: Optional[str] = None) -> Dict[str, Any]:
     """
     Steps (Important operations called out):
@@ -218,13 +172,13 @@ def run_rag(query: str, file_bytes: bytes, filename: str, file_url: Optional[str
     start = time.time()
 
     try:
-        # 1) Save uploaded file bytes to uploads directory (unique safe filename)
+        # Save uploaded file bytes to uploads directory (unique safe filename)
         safe_name = f"{uuid.uuid4().hex[:8]}_{os.path.basename(filename)}"
         saved_path = UPLOADS_DIR / safe_name
         with saved_path.open("wb") as f:
             f.write(file_bytes)
 
-        # 2) Extract text using your pdf_extractor helper (non-ocr preferred)
+        # Extract text using your pdf_extractor helper (non-ocr preferred)
         extraction = extract_text_or_fail(file_bytes)
         # Important operation: check for explicit extraction errors and return structured payload
         if extraction.get("error"):
@@ -242,21 +196,21 @@ def run_rag(query: str, file_bytes: bytes, filename: str, file_url: Optional[str
         full_text = extraction.get("text", "")
         pages_info = extraction.get("pages", [])  # optional
 
-        # 3) Chunking - simple character-based split (tune later if needed)
+        # Chunking - simple character-based split (tune later if needed)
         chunk_size = 3000  # chars per chunk (empiric)
         chunks = [full_text[i:i + chunk_size] for i in range(0, len(full_text), chunk_size)] or [full_text]
 
-        # 4) Compute embeddings for document chunks (service function)
+        # Compute embeddings for document chunks (service function)
         # Important operation: embeddings_for_document_bytes is expected to return a list of vectors aligned to chunks
         embeddings = embeddings_for_document_bytes(doc_bytes=file_bytes, chunks=chunks)
 
-        # 5) Build and persist vector store for this document
+        # Build and persist vector store for this document
         # Use document checksum as stable key for caching / retrieval
         key = hashlib.sha256(file_bytes).hexdigest()
         build_store(key=key, chunks=chunks, embeddings=embeddings)
 
-        # 6) Embed query and query the store for top-k matching chunks
-        # NOTE: embed_texts should be implemented in your gemini_client or embeddings service.
+        # Embed query and query the store for top-k matching chunks
+        # embed_texts should be implemented in your gemini_client or embeddings service.
         # Defer import to here so the module can be replaced easily in tests.
         try:
             from saras_engine.src.services.gemini_client import embed_texts
@@ -271,20 +225,20 @@ def run_rag(query: str, file_bytes: bytes, filename: str, file_url: Optional[str
         q_emb = q_embs[0]
         top_chunks = query_store(key=key, query_embedding=q_emb, k=3)  # returns list of {text_excerpt, chunk_id, score}
 
-        # 7) Prepare retrieved context text (concatenate top excerpts)
+        # Prepare retrieved context text (concatenate top excerpts)
         retrieved_context_text = "\n".join([c.get("text_excerpt", "") for c in top_chunks])
 
-        # 8) Build a descriptive task text for ManagerAgent
+        # Build a descriptive task text for ManagerAgent
         task_text = f"RAG task — Query: {query} ; FilePath: {str(saved_path)} ; RetrievedContext: {retrieved_context_text}"
 
-        # 9) Instantiate ManagerAgent and hand off (pass rag_context so writer can choose Pro model)
+        # Instantiate ManagerAgent and hand off (pass rag_context so writer can choose Pro model)
         mgr = ManagerAgent(api_key=SARAS_API_KEY)
         manager_output = mgr.handle_request(task=task_text, rag_context=retrieved_context_text, mode="RAG")
 
-        # 10) Normalize manager output into Option-C payload
+        # Normalize manager output into Option-C payload
         payload = _normalize_manager_output(manager_output, task_id=task_id, mode="RAG", file_ref=str(saved_path))
 
-        # 11) Add technical metadata (execution time, file refs, vector store id)
+        # Add technical metadata (execution time, file refs, vector store id)
         payload.setdefault("metadata", {})
         payload["metadata"].update({
             "execution_time_seconds": round(time.time() - start, 3),
@@ -294,10 +248,10 @@ def run_rag(query: str, file_bytes: bytes, filename: str, file_url: Optional[str
             "num_sources": len(top_chunks)
         })
 
-        # 12) Add the top_chunks as 'sources' (useful for frontend)
+        # Add the top_chunks as 'sources' (useful for frontend)
         payload["sources"] = top_chunks
 
-        # 13) Persist trace
+        # Persist trace
         _save_payload(task_id, payload)
         return payload
 
