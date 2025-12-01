@@ -1,0 +1,66 @@
+[2025-11-24T06:48:12.779443Z] [ManagerAgent] Received task: Explain machine learning
+[2025-11-24T06:48:12.782862Z] [ManagerAgent] Session memory updated. Total messages: 1
+[2025-11-24T06:48:12.787412Z] [ManagerAgent] Task split completed.
+[2025-11-24T06:48:12.849215Z] [ManagerAgent] Calling ResearcherAgent...
+[2025-11-24T06:48:12.868505Z] [ManagerAgent] Calling WriterAgent...
+[2025-11-24T06:48:12.873458Z] [ManagerAgent] Long-term memory updated.
+[2025-11-24T06:48:12.877412Z] [ManagerAgent] Task completed in 0.1s.
+[2025-11-24T06:49:17.027626Z] [ManagerAgent] Received task: RAG task: Query='Summarize this file' ; FilePath='J:\Projects\S.A.R.A.S\S.A.R.A.S\backend\uploads\5a133712_Screenshot 2025-11-19 190418.png'
+[2025-11-24T06:49:17.030539Z] [ManagerAgent] Session memory updated. Total messages: 1
+[2025-11-24T06:49:17.031538Z] [ManagerAgent] Task split completed.
+[2025-11-24T06:49:17.032537Z] [ManagerAgent] Calling ResearcherAgent...
+[2025-11-24T06:49:17.033641Z] [ManagerAgent] Calling WriterAgent...
+[2025-11-24T06:49:17.036545Z] [ManagerAgent] Long-term memory updated.
+[2025-11-24T06:49:17.038545Z] [ManagerAgent] Task completed in 0.01s.
+[2025-11-24T09:31:38.043171Z] [ManagerAgent] Received task: RAG task — Query: Summarize this file ; FilePath: J:\Projects\S.A.R.A.S\S.A.R.A.S\backend\uploads\dcd69f43_Elara-Testing.pdf ; RetrievedContext: Who is the Prime Minister of India  
+- The Prime minister of India is Narendra Modi
+[2025-11-24T09:31:38.105251Z] [ManagerAgent] Session memory updated. Total messages: 1
+[2025-11-24T09:31:38.113002Z] [ManagerAgent] Task split completed.
+[2025-11-24T09:31:38.336834Z] [ManagerAgent] Calling ResearcherAgent...
+[2025-11-24T09:31:38.341755Z] [ManagerAgent] Calling WriterAgent...
+[2025-11-24T09:31:38.341755Z] [ManagerAgent] Long-term memory updated.
+[2025-11-24T09:31:38.341755Z] [ManagerAgent] Task completed in 0.3s.
+[2025-11-24T13:19:43.341777Z] [ManagerAgent] Received task: RAG task — Query: Summarize this file ; FilePath: J:\Projects\S.A.R.A.S\S.A.R.A.S\backend\uploads\c8f870fd_Elara-Testing.pdf ; RetrievedContext: Who is the Prime Minister of India  
+- The Prime minister of India is Narendra Modi
+[2025-11-24T13:19:43.602353Z] [ManagerAgent] Task completed in 0.26s.
+[2025-11-24T13:23:48.838400Z] [ManagerAgent] Received task: RAG task — Query: Summarize this file ; FilePath: J:\Projects\S.A.R.A.S\S.A.R.A.S\backend\uploads\a887277d_Elara-Testing.pdf ; RetrievedContext: Who is the Prime Minister of India  
+- The Prime minister of India is Narendra Modi
+[2025-11-24T13:23:48.855640Z] [ManagerAgent] Task completed in 0.02s.
+[2025-11-24T13:29:11.821666Z] [ManagerAgent] Received task: Explain quantum computing in simple words
+[2025-11-24T13:29:11.829510Z] [ManagerAgent] Task completed in 0.01s.
+[2025-11-24T13:30:14.209198Z] [ManagerAgent] Received task: Research : AI Agents , Should be in 50 Lines for Case Study
+[2025-11-24T13:30:14.221802Z] [ManagerAgent] Task completed in 0.01s.
+[2025-11-25T06:13:02.836938Z] [ManagerAgent] Received task: Explain quantum computing simply
+[2025-11-25T06:13:02.839024Z] [ManagerAgent] Session memory size: 1
+[2025-11-25T06:13:02.899316Z] [ManagerAgent] Calling ResearcherAgent...
+[2025-11-25T06:13:02.941585Z] [ManagerAgent] Calling WriterAgent...
+[2025-11-25T06:13:02.944484Z] [ManagerAgent] Task completed in 0.108s
+[2025-11-25T06:14:17.150262Z] [ManagerAgent] Received task: RAG task — Query: Summery of Paper ; FilePath: J:\Projects\S.A.R.A.S\S.A.R.A.S\backend\uploads\ef85c850_PPE-PAPER.pdf ; RetrievedContext: DYPCET, Kolhapur                                                                                                                               1 
+ 
+ABSTRACT 
+              Modern organizations increasingly depend on large amounts of data, often stored in 
+common formats like CSV, Excel, JSON, and PDF files. However, getting useful insights from 
+these raw datasets remains a challenge, especially f
+ of Existing System 
+1. Technical Barriers: Most existing data analysis tools require coding knowledge or 
+expertise in software like Python, SQL, or Power BI, which limits accessibility for 
+general users. 
+2. Limited Multi-Format Support: Current systems often handle only specific file 
+formats and cannot seamlessly process data from varied sources such as CSV, Excel, 
+JSON, and PDF together. 
+3
+nclude heterogeneous file analysis or persistent interaction trails [2].  
+The IEEE work linked via 9699035 addresses conversational analytics for multiturn natural 
+language interaction in analytical workflows. It demonstrates accessibility gains for non-
+technical stakeholders but often relies on predefined schemas or visualization grammars. This 
+creates gaps in generalized onboarding for vario
+[2025-11-25T06:14:17.150262Z] [ManagerAgent] Session memory size: 1
+[2025-11-25T06:14:17.150262Z] [ManagerAgent] Calling ResearcherAgent...
+[2025-11-25T06:14:17.150262Z] [ManagerAgent] Calling WriterAgent...
+[2025-11-25T06:14:17.157642Z] [ManagerAgent] Task completed in 0.007s
+[2025-11-25T07:17:41.708638Z] [ManagerAgent] Received task: Research : AI Agents , Should be in 50 Lines for Case Study
+[2025-11-25T07:18:15.501883Z] [ManagerAgent] Received task: RAG task — Query: Summarize this file in 100 lines ; FilePath: J:\Projects\S.A.R.A.S\S.A.R.A.S\backend\uploads\0417c254_Elara-Testing.pdf ; RetrievedContext: Who is the Prime Minister of India 
+- 
+The Prime minister of India is Narendra Modi 
+
+
