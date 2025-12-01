@@ -1,7 +1,3 @@
-# ============================================================
-#  engine_runner.py  (FINAL — CLEAN RESPONSE VERSION)
-# ============================================================
-
 import hashlib
 import os
 import time
@@ -10,9 +6,8 @@ import uuid
 from pathlib import Path
 from typing import Optional, Dict, Any, List
 
-# ------------------------------------------------------------
+ 
 # IMPORT ENGINE LAYERS
-# ------------------------------------------------------------
 try:
     from saras_engine.src.tools.pdf_extractor import extract_text_or_fail
     from saras_engine.src.tools.embeddings import embeddings_for_document_bytes
@@ -21,9 +16,9 @@ try:
 except Exception as e:
     raise ImportError(f"Engine imports failed: {e}")
 
-# ------------------------------------------------------------
+ 
 # BASE & ENV CONFIG
-# ------------------------------------------------------------
+ 
 SARAS_API_KEY = os.getenv("SARAS_API_KEY", "demo-key")
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -33,9 +28,9 @@ UPLOADS_DIR = BASE_DIR / "uploads"
 TRACES_DIR.mkdir(parents=True, exist_ok=True)
 UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 
-# ------------------------------------------------------------
+ 
 # UTILITY HELPERS
-# ------------------------------------------------------------
+ 
 def _make_task_id(prefix: str) -> str:
     return f"{prefix}-{uuid.uuid4().hex[:8]}"
 
@@ -49,9 +44,9 @@ def _save_payload(task_id: str, payload: Dict[str, Any]):
     path = TRACES_DIR / f"{task_id}.json"
     _atomic_write_json(path, payload)
 
-# ------------------------------------------------------------
+ 
 # CLEANING LAYER (MOST IMPORTANT)
-# ------------------------------------------------------------
+ 
 def _clean_response(payload: Dict[str, Any]) -> Dict[str, Any]:
     """
     Converts internal engine output into clean final JSON format.
@@ -90,9 +85,9 @@ def _clean_response(payload: Dict[str, Any]) -> Dict[str, Any]:
 
     return cleaned
 
-# ------------------------------------------------------------
+ 
 # NON-RAG PIPELINE
-# ------------------------------------------------------------
+ 
 def run_non_rag(query: str) -> Dict[str, Any]:
     task_id = _make_task_id("nonrag")
     start = time.time()
@@ -131,9 +126,9 @@ def run_non_rag(query: str) -> Dict[str, Any]:
             "error": str(e)
         }
 
-# ------------------------------------------------------------
+ 
 # RAG PIPELINE
-# ------------------------------------------------------------
+ 
 def run_rag(query: str, file_bytes: bytes, filename: str,
             file_url: Optional[str] = None) -> Dict[str, Any]:
 
@@ -141,13 +136,13 @@ def run_rag(query: str, file_bytes: bytes, filename: str,
     start = time.time()
 
     try:
-        # 1. Save uploaded file
+        # Save uploaded file
         safe_name = f"{uuid.uuid4().hex[:8]}_{filename}"
         saved_path = UPLOADS_DIR / safe_name
         with saved_path.open("wb") as f:
             f.write(file_bytes)
 
-        # 2. Extract text
+        # Extract text
         extraction = extract_text_or_fail(file_bytes)
         if extraction.get("error"):
             return {
@@ -159,23 +154,23 @@ def run_rag(query: str, file_bytes: bytes, filename: str,
 
         full_text = extraction["text"]
 
-        # 3. Chunk
+        #  Chunk
         chunk_size = 3000
         chunks = [full_text[i:i+chunk_size] for i in range(0, len(full_text), chunk_size)]
 
-        # 4. Embeddings
+        #  Embeddings
         embeddings = embeddings_for_document_bytes(file_bytes, chunks)
 
-        # 5. Build vector store
+        #  Build vector store
         key = hashlib.sha256(file_bytes).hexdigest()
         build_store(key, chunks, embeddings)
 
-        # 6. Query vector store
+        #  Query vector store
         from saras_engine.src.services.gemini_client import embed_texts
         q_emb = embed_texts([query])[0]
         top_chunks = query_store(key, q_emb, k=3)
 
-        # 7. Hand retrieved context to ManagerAgent
+        # Hand retrieved context to ManagerAgent
         retrieved_context = "\n".join([c["text_excerpt"] for c in top_chunks])
         mgr = ManagerAgent(api_key=SARAS_API_KEY)
 
@@ -184,7 +179,7 @@ def run_rag(query: str, file_bytes: bytes, filename: str,
             rag_context=retrieved_context
         )
 
-        # 8. Prepare internal
+        # Prepare internal
         internal = {
             "status": "success",
             "task_id": task_id,
@@ -193,7 +188,7 @@ def run_rag(query: str, file_bytes: bytes, filename: str,
             "sources": top_chunks
         }
 
-        # 9. CLEAN RESPONSE
+        # CLEAN RESPONSE
         final = _clean_response(internal)
         final["server_time_ms"] = round((time.time() - start) * 1000, 2)
 
