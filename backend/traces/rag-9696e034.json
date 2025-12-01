@@ -1,0 +1,19 @@
+{
+  "status": "error",
+  "task_id": "rag-9696e034",
+  "mode": "RAG",
+  "final_answer": "",
+  "metadata": {
+    "error": "PyMuPDF (fitz) is not installed. Install via: pip install pymupdf"
+  },
+  "trace": [
+    {
+      "actor": "engine_runner",
+      "action": "extraction_failed",
+      "details": {
+        "error": "pymupdf_missing",
+        "message": "PyMuPDF (fitz) is not installed. Install via: pip install pymupdf"
+      }
+    }
+  ]
+}

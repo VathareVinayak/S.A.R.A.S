@@ -69,6 +69,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'saras_backend.urls'
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+]
+ALLOWED_HOSTS = ["*", "127.0.0.1", "localhost"]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -1,0 +1,81 @@
+{
+  "status": "success",
+  "task_id": "nonrag-53274b29",
+  "mode": "Non-RAG",
+  "final_answer": "Short answer (flash stub): This is a stub response for non-RAG requests.",
+  "sources": [
+    {
+      "chunk_id": "r1",
+      "page": null,
+      "text_excerpt": "AI agents improve automation, reduce costs, and boost efficiency."
+    },
+    {
+      "chunk_id": "r2",
+      "page": null,
+      "text_excerpt": "Companies use agent-based systems for dynamic problem solving."
+    }
+  ],
+  "tools_used": [
+    "google_search",
+    "extract_keywords",
+    "outline_generator"
+  ],
+  "agents": [
+    "ManagerAgent",
+    "ResearchAgent",
+    "WriterAgent"
+  ],
+  "metadata": {
+    "execution_time_seconds": 0.111,
+    "tools_used": [
+      "google_search",
+      "extract_keywords",
+      "outline_generator"
+    ],
+    "tool_calls": 0,
+    "agent_calls": 3,
+    "errors": 0,
+    "writer_used_fallback": true,
+    "writer_citations": [],
+    "query": "Explain quantum computing simply"
+  },
+  "trace": [
+    {
+      "timestamp": "2025-11-25T06:13:02.839024Z",
+      "agent": "ManagerAgent",
+      "action": "task_received",
+      "details": {
+        "task": "Explain quantum computing simply",
+        "mode": "Non-RAG"
+      }
+    },
+    {
+      "timestamp": "2025-11-25T06:13:02.839024Z",
+      "agent": "ManagerAgent",
+      "action": "session_memory_updated",
+      "details": {
+        "messages": 1
+      }
+    },
+    {
+      "timestamp": "2025-11-25T06:13:02.899316Z",
+      "agent": "ManagerAgent",
+      "action": "call_researcher_agent",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-11-25T06:13:02.941585Z",
+      "agent": "ManagerAgent",
+      "action": "call_writer_agent",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-11-25T06:13:02.944484Z",
+      "agent": "ManagerAgent",
+      "action": "long_term_memory_updated",
+      "details": {
+        "fact": "Researched topic: Explain quantum computing simply"
+      }
+    }
+  ]
+}

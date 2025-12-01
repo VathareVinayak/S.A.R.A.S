@@ -1,0 +1,56 @@
+{
+  "status": "success",
+  "task_id": "rag-6867d256",
+  "mode": "RAG",
+  "final_answer": "[S.A.R.A.S-STUB] RAG answer for file 'Screenshot 2025-11-19 190418.png' and query: Summarize this file",
+  "sources": [
+    {
+      "chunk_id": "c1",
+      "page": 1,
+      "text_excerpt": "Mock excerpt from file (chunk 1)"
+    },
+    {
+      "chunk_id": "c2",
+      "page": 2,
+      "text_excerpt": "Mock excerpt from file (chunk 2)"
+    }
+  ],
+  "tools_used": [
+    "pdf_extractor",
+    "chunk_splitter",
+    "vector_search"
+  ],
+  "agents": [
+    "ManagerAgent",
+    "ResearchAgent",
+    "WriterAgent"
+  ],
+  "metadata": {
+    "time_taken_seconds": 0.081,
+    "file_received": "Screenshot 2025-11-19 190418.png",
+    "file_url": "file:///mnt/data/814b0c5d-95b4-42de-b72c-4c0a61eb65d4.png",
+    "num_sources": 2
+  },
+  "trace": [
+    {
+      "step": 1,
+      "actor": "ManagerAgent",
+      "action": "Start RAG pipeline"
+    },
+    {
+      "step": 2,
+      "actor": "ResearchAgent",
+      "action": "Extract text from file (mock)"
+    },
+    {
+      "step": 3,
+      "actor": "ResearchAgent",
+      "action": "Retrieve top-k chunks (mock)"
+    },
+    {
+      "step": 4,
+      "actor": "WriterAgent",
+      "action": "Compose final answer from chunks (mock)"
+    }
+  ]
+}

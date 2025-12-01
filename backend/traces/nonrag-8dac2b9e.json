@@ -1,0 +1,21 @@
+{
+  "status": "error",
+  "task_id": "nonrag-8dac2b9e",
+  "mode": "Non-RAG",
+  "final_answer": "",
+  "sources": [],
+  "tools_used": [],
+  "agents": [
+    "ManagerAgent"
+  ],
+  "metadata": {
+    "error": "ManagerAgent.handle_request() got an unexpected keyword argument 'mode'"
+  },
+  "trace": [
+    {
+      "actor": "engine_runner",
+      "action": "exception",
+      "details": "ManagerAgent.handle_request() got an unexpected keyword argument 'mode'"
+    }
+  ]
+}

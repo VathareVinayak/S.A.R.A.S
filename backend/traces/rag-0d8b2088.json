@@ -1,0 +1,80 @@
+{
+  "status": "success",
+  "task_id": "rag-0d8b2088",
+  "mode": "RAG",
+  "final_answer": "json\n{\n  \"summary\": \"The Prime Minister of India is Narendra Modi, according to the provided context. This information is directly stated in the retrieved document.\",\n  \"final_text\": \"According to the provided context, Narendra Modi is the Prime Minister of India. [0417c254_Elara-Testing.pdf]\",\n  \"sections\": [\n    {\n      \"heading\": \"Prime Minister of India\",\n      \"content\": \"Narendra Modi is the Prime Minister of India. [0417c254_Elara-Testing.pdf]\"\n    }\n  ],\n  \"citations\": [\n    {\n      \"chunk_id\": \"0417c254_Elara-Testing.pdf\",\n      \"excerpt\": \"The Prime minister of India is Narendra Modi\"\n    }\n  ]\n}",
+  "sources": [
+    {
+      "chunk_id": "chunk-0",
+      "score": 1.0,
+      "text_excerpt": "Who is the Prime Minister of India \n- \nThe Prime minister of India is Narendra Modi \n\n"
+    }
+  ],
+  "tools_used": [
+    "google_search",
+    "extract_keywords",
+    "outline_generator"
+  ],
+  "agents": [
+    "ManagerAgent",
+    "ResearchAgent",
+    "WriterAgent"
+  ],
+  "metadata": {
+    "execution_time_seconds": 7.478,
+    "tools_used": [
+      "google_search",
+      "extract_keywords",
+      "outline_generator"
+    ],
+    "tool_calls": 0,
+    "agent_calls": 1,
+    "errors": 0,
+    "file_ref": "J:\\Projects\\S.A.R.A.S\\S.A.R.A.S\\backend\\uploads\\0417c254_Elara-Testing.pdf",
+    "writer_used_fallback": false,
+    "writer_citations": [],
+    "saved_path": "J:\\Projects\\S.A.R.A.S\\S.A.R.A.S\\backend\\uploads\\0417c254_Elara-Testing.pdf",
+    "original_filename": "Elara-Testing.pdf",
+    "vector_store": "store_29b970a5",
+    "num_sources": 1
+  },
+  "trace": [
+    {
+      "timestamp": "2025-11-25T07:18:15.503983Z",
+      "agent": "ManagerAgent",
+      "action": "task_received",
+      "details": {
+        "task": "RAG task — Query: Summarize this file in 100 lines ; FilePath: J:\\Projects\\S.A.R.A.S\\S.A.R.A.S\\backend\\uploads\\0417c254_Elara-Testing.pdf ; RetrievedContext: Who is the Prime Minister of India \n- \nThe Prime minister of India is Narendra Modi \n\n",
+        "mode": "RAG"
+      }
+    },
+    {
+      "timestamp": "2025-11-25T07:18:15.503983Z",
+      "agent": "ManagerAgent",
+      "action": "session_memory_updated",
+      "details": {
+        "messages": 1
+      }
+    },
+    {
+      "timestamp": "2025-11-25T07:18:15.503983Z",
+      "agent": "ManagerAgent",
+      "action": "call_researcher_agent",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-11-25T07:18:15.503983Z",
+      "agent": "ManagerAgent",
+      "action": "call_writer_agent",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-11-25T07:18:18.958701Z",
+      "agent": "ManagerAgent",
+      "action": "long_term_memory_updated",
+      "details": {
+        "fact": "Researched topic: RAG task — Query: Summarize this file in 100 lines ; FilePath: J:\\Projects\\S.A.R.A.S\\S.A.R.A.S\\backend\\uploads\\0417c254_Elara-Testing.pdf ; RetrievedContext: Who is the Prime Minister of India \n- \nThe Prime minister of India is Narendra Modi \n\n"
+      }
+    }
+  ]
+}

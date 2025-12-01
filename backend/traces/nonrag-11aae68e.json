@@ -1,0 +1,89 @@
+{
+  "status": "success",
+  "task_id": "nonrag-11aae68e",
+  "mode": "Non-RAG",
+  "final_answer": "Short answer (flash stub): This is a stub response for non-RAG requests.",
+  "sources": [
+    {
+      "chunk_id": "r1",
+      "page": null,
+      "text_excerpt": "AI agents improve automation, reduce costs, and boost efficiency."
+    },
+    {
+      "chunk_id": "r2",
+      "page": null,
+      "text_excerpt": "Companies use agent-based systems for dynamic problem solving."
+    }
+  ],
+  "tools_used": [
+    "google_search",
+    "extract_keywords",
+    "outline_generator"
+  ],
+  "agents": [
+    "ManagerAgent",
+    "ResearchAgent",
+    "WriterAgent"
+  ],
+  "metadata": {
+    "execution_time_seconds": 0.17,
+    "tools_used": [
+      "google_search",
+      "extract_keywords",
+      "outline_generator"
+    ],
+    "tool_calls": 0,
+    "agent_calls": 3,
+    "errors": 0,
+    "writer_used_fallback": true,
+    "writer_citations": [],
+    "query": "Research : AI Agents , Should be in 50 Lines for Case Study"
+  },
+  "trace": [
+    {
+      "timestamp": "2025-11-24T13:30:14.219182Z",
+      "agent": "ManagerAgent",
+      "action": "task_received",
+      "details": {
+        "task": "Research : AI Agents , Should be in 50 Lines for Case Study"
+      }
+    },
+    {
+      "timestamp": "2025-11-24T13:30:14.219182Z",
+      "agent": "ManagerAgent",
+      "action": "session_memory_updated",
+      "details": {
+        "messages": 1
+      }
+    },
+    {
+      "timestamp": "2025-11-24T13:30:14.219182Z",
+      "agent": "ManagerAgent",
+      "action": "task_split",
+      "details": {
+        "research": "Research information about: Research : AI Agents , Should be in 50 Lines for Case Study",
+        "writing": "Write a structured article about: Research : AI Agents , Should be in 50 Lines for Case Study"
+      }
+    },
+    {
+      "timestamp": "2025-11-24T13:30:14.219182Z",
+      "agent": "ManagerAgent",
+      "action": "call_researcher_agent",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-11-24T13:30:14.219182Z",
+      "agent": "ManagerAgent",
+      "action": "call_writer_agent",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-11-24T13:30:14.221802Z",
+      "agent": "ManagerAgent",
+      "action": "long_term_memory_updated",
+      "details": {
+        "fact": "Researched topic: Research : AI Agents , Should be in 50 Lines for Case Study"
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "status": "success",
+  "task_id": "rag-134e9e20",
+  "mode": "RAG",
+  "final_answer": "Summary (pro stub): This is a safe stub summary. Replace with real API key for real LLM output.",
+  "sources": [
+    {
+      "chunk_id": "chunk-0",
+      "score": 1.0,
+      "text_excerpt": "DYPCET, Kolhapur                                                                                                                               1 \n \nABSTRACT \n              Modern organizations increasingly depend on large amounts of data, often stored in \ncommon formats like CSV, Excel, JSON, and PDF files. However, getting useful insights from \nthese raw datasets remains a challenge, especially f"
+    },
+    {
+      "chunk_id": "chunk-1",
+      "score": 1.0,
+      "text_excerpt": " of Existing System \n1. Technical Barriers: Most existing data analysis tools require coding knowledge or \nexpertise in software like Python, SQL, or Power BI, which limits accessibility for \ngeneral users. \n2. Limited Multi-Format Support: Current systems often handle only specific file \nformats and cannot seamlessly process data from varied sources such as CSV, Excel, \nJSON, and PDF together. \n3"
+    },
+    {
+      "chunk_id": "chunk-2",
+      "score": 1.0,
+      "text_excerpt": "nclude heterogeneous file analysis or persistent interaction trails [2].  \nThe IEEE work linked via 9699035 addresses conversational analytics for multiturn natural \nlanguage interaction in analytical workflows. It demonstrates accessibility gains for non-\ntechnical stakeholders but often relies on predefined schemas or visualization grammars. This \ncreates gaps in generalized onboarding for vario"
+    }
+  ],
+  "tools_used": [
+    "google_search",
+    "extract_keywords",
+    "outline_generator"
+  ],
+  "agents": [
+    "ManagerAgent",
+    "ResearchAgent",
+    "WriterAgent"
+  ],
+  "metadata": {
+    "execution_time_seconds": 1.175,
+    "tools_used": [
+      "google_search",
+      "extract_keywords",
+      "outline_generator"
+    ],
+    "tool_calls": 0,
+    "agent_calls": 3,
+    "errors": 0,
+    "file_ref": "J:\\Projects\\S.A.R.A.S\\S.A.R.A.S\\backend\\uploads\\ef85c850_PPE-PAPER.pdf",
+    "writer_used_fallback": true,
+    "writer_citations": [],
+    "saved_path": "J:\\Projects\\S.A.R.A.S\\S.A.R.A.S\\backend\\uploads\\ef85c850_PPE-PAPER.pdf",
+    "original_filename": "PPE-PAPER.pdf",
+    "vector_store": "store_405a4f2b",
+    "num_sources": 3
+  },
+  "trace": [
+    {
+      "timestamp": "2025-11-25T06:14:17.150262Z",
+      "agent": "ManagerAgent",
+      "action": "task_received",
+      "details": {
+        "task": "RAG task — Query: Summery of Paper ; FilePath: J:\\Projects\\S.A.R.A.S\\S.A.R.A.S\\backend\\uploads\\ef85c850_PPE-PAPER.pdf ; RetrievedContext: DYPCET, Kolhapur                                                                                                                               1 \n \nABSTRACT \n              Modern organizations increasingly depend on large amounts of data, often stored in \ncommon formats like CSV, Excel, JSON, and PDF files. However, getting useful insights from \nthese raw datasets remains a challenge, especially f\n of Existing System \n1. Technical Barriers: Most existing data analysis tools require coding knowledge or \nexpertise in software like Python, SQL, or Power BI, which limits accessibility for \ngeneral users. \n2. Limited Multi-Format Support: Current systems often handle only specific file \nformats and cannot seamlessly process data from varied sources such as CSV, Excel, \nJSON, and PDF together. \n3\nnclude heterogeneous file analysis or persistent interaction trails [2].  \nThe IEEE work linked via 9699035 addresses conversational analytics for multiturn natural \nlanguage interaction in analytical workflows. It demonstrates accessibility gains for non-\ntechnical stakeholders but often relies on predefined schemas or visualization grammars. This \ncreates gaps in generalized onboarding for vario",
+        "mode": "RAG"
+      }
+    },
+    {
+      "timestamp": "2025-11-25T06:14:17.150262Z",
+      "agent": "ManagerAgent",
+      "action": "session_memory_updated",
+      "details": {
+        "messages": 1
+      }
+    },
+    {
+      "timestamp": "2025-11-25T06:14:17.150262Z",
+      "agent": "ManagerAgent",
+      "action": "call_researcher_agent",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-11-25T06:14:17.150262Z",
+      "agent": "ManagerAgent",
+      "action": "call_writer_agent",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-11-25T06:14:17.157642Z",
+      "agent": "ManagerAgent",
+      "action": "long_term_memory_updated",
+      "details": {
+        "fact": "Researched topic: RAG task — Query: Summery of Paper ; FilePath: J:\\Projects\\S.A.R.A.S\\S.A.R.A.S\\backend\\uploads\\ef85c850_PPE-PAPER.pdf ; RetrievedContext: DYPCET, Kolhapur                                                                                                                               1 \n \nABSTRACT \n              Modern organizations increasingly depend on large amounts of data, often stored in \ncommon formats like CSV, Excel, JSON, and PDF files. However, getting useful insights from \nthese raw datasets remains a challenge, especially f\n of Existing System \n1. Technical Barriers: Most existing data analysis tools require coding knowledge or \nexpertise in software like Python, SQL, or Power BI, which limits accessibility for \ngeneral users. \n2. Limited Multi-Format Support: Current systems often handle only specific file \nformats and cannot seamlessly process data from varied sources such as CSV, Excel, \nJSON, and PDF together. \n3\nnclude heterogeneous file analysis or persistent interaction trails [2].  \nThe IEEE work linked via 9699035 addresses conversational analytics for multiturn natural \nlanguage interaction in analytical workflows. It demonstrates accessibility gains for non-\ntechnical stakeholders but often relies on predefined schemas or visualization grammars. This \ncreates gaps in generalized onboarding for vario"
+      }
+    }
+  ]
+}

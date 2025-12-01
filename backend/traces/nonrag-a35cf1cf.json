@@ -1,0 +1,37 @@
+{
+  "status": "success",
+  "task_id": "nonrag-a35cf1cf",
+  "mode": "Non-RAG",
+  "final_answer": "[S.A.R.A.S-STUB] Non-RAG answer for: Explain deep learning",
+  "sources": [],
+  "tools_used": [
+    "google_search",
+    "keyword_extractor"
+  ],
+  "agents": [
+    "ManagerAgent",
+    "ResearchAgent",
+    "WriterAgent"
+  ],
+  "metadata": {
+    "time_taken_seconds": 0.051,
+    "query": "Explain deep learning"
+  },
+  "trace": [
+    {
+      "step": 1,
+      "actor": "ManagerAgent",
+      "action": "Start Non-RAG pipeline"
+    },
+    {
+      "step": 2,
+      "actor": "ResearchAgent",
+      "action": "Perform web research (mock)"
+    },
+    {
+      "step": 3,
+      "actor": "WriterAgent",
+      "action": "Compose final answer (mock)"
+    }
+  ]
+}
