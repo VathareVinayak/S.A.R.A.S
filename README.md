@@ -283,10 +283,3 @@ Creator of **S.A.R.A.S — Smart Automated Research Assistant System**
 
 ---
 
-If you want, I can also generate:
-✅ A **high-quality logo**
-✅ GitHub **project board**
-✅ Issue templates
-✅ PR templates
-
-Just tell me!
