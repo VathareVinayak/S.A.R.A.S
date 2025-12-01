@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>S.A.R.A.S — Demo UI</title>
+
+  <!-- IMPORTANT: Tailwind CDN is convenient for local/dev. For production build, install Tailwind properly. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- App CSS: local styles (small additions beyond Tailwind) -->
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-900 via-blue-900 to-black text-slate-100">
+
+  <!-- App container -->
+  <main class="max-w-4xl mx-auto p-6">
+
+    <!-- Header -->
+    <header class="mb-6">
+      <!-- Important: clear, simple top title -->
+      <h1 class="text-3xl font-semibold">S.A.R.A.S — Quick Demo</h1>
+      <p class="text-sm text-slate-300 mt-1">Choose Non-RAG (fast) or RAG (upload a doc) and hit run.</p>
+    </header>
+
+    <!-- Controls -->
+    <section class="bg-slate-800/60 rounded-2xl p-6 shadow-lg">
+      <!-- Mode buttons -->
+      <div class="flex gap-3 mb-4">
+        <!-- Non-RAG toggle: default selected -->
+        <button id="nonRagBtn" class="px-4 py-2 rounded-lg bg-blue-600 text-white">Non-RAG</button>
+        <!-- RAG toggle -->
+        <button id="ragBtn" class="px-4 py-2 rounded-lg bg-slate-700 text-slate-200">RAG (Upload)</button>
+      </div>
+
+      <!-- Query input -->
+      <div class="mb-4">
+        <!-- Important: user types the query here -->
+        <label class="block text-sm text-slate-300 mb-1">Query</label>
+        <input id="queryInput" type="text" placeholder="Explain quantum computing simply" 
+               class="w-full rounded-lg px-3 py-2 bg-slate-900 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <!-- File upload (hidden by default) -->
+      <div id="fileUploadContainer" class="mb-4 hidden">
+        <!-- Important: type=file input for RAG -->
+        <label class="block text-sm text-slate-300 mb-1">Upload document (PDF, TXT)</label>
+        <input id="fileInput" type="file" accept=".pdf,.txt" class="w-full text-sm" />
+        <p class="text-xs text-slate-400 mt-2">PDF recommended. Backend will extract text and build vector store.</p>
+      </div>
+
+      <!-- Submit -->
+      <div class="flex items-center gap-4">
+        <!-- Important: triggers fetch to your Django API -->
+        <button id="submitBtn" class="px-5 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 shadow">Run</button>
+
+        <!-- Simple loader -->
+        <div id="loader" class="hidden flex items-center gap-2 text-sm text-slate-300">
+          <svg class="w-4 h-4 animate-spin" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/></svg>
+          Running...
+        </div>
+      </div>
+    </section>
+
+    <!-- Results box -->
+    <section id="resultBox" class="mt-6 hidden bg-slate-800/50 p-4 rounded-lg">
+      <div class="flex justify-between items-start">
+        <h2 class="text-lg font-medium">Result</h2>
+        <!-- Clear results -->
+        <button id="clearBtn" class="text-sm text-slate-400 hover:text-white">Clear</button>
+      </div>
+
+      <!-- Important: we show JSON pretty here -->
+      <pre id="resultText" class="mt-3 text-sm overflow-auto rounded-md bg-black/60 p-3 text-slate-200"></pre>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-6 text-xs text-slate-500">
+      <!-- Important: remind devs to use HTTP server and ensure backend is running -->
+      Serve this folder (not open via file://). Example: `python -m http.server 5500` and ensure Django runs on http://127.0.0.1:8000
+    </footer>
+  </main>
+
+  <!-- App JS -->
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

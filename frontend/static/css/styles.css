@@ -1,0 +1,6 @@
+/* Small custom styles beyond Tailwind; important for pre block readability */
+pre#resultText {
+  max-height: 50vh;     /* Important: prevent very long outputs from taking whole screen */
+  white-space: pre-wrap; /* Important: wrap long lines for readability */
+  word-break: break-word;
+}
